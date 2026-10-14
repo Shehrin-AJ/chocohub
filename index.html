@@ -1,0 +1,384 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#351b16">
+<title>ChocoHub | Handmade Happiness Unlimited</title>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --dark:#351b16;
+  --brown:#633b2c;
+  --gold:#c08b55;
+  --cream:#fff8ef;
+  --pink:#f0dfd2;
+  --muted:#806c62;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);line-height:1.6}
+a{text-decoration:none;color:inherit}
+button,input{font:inherit}
+button{cursor:pointer}
+img{max-width:100%;display:block}
+.announcement{background:var(--dark);color:#fff;text-align:center;padding:9px;font-size:11px;letter-spacing:2px}
+header{display:flex;align-items:center;justify-content:space-between;padding:18px 7%;background:var(--cream);position:sticky;top:0;z-index:10;border-bottom:1px solid #eadbce;gap:20px}
+.logo{font:700 30px 'Playfair Display',serif;letter-spacing:-1px}
+.logo span{color:var(--gold)}
+nav{display:flex;gap:26px;font-size:13px;font-weight:600}
+nav a:hover{color:var(--gold)}
+.cart-btn,.btn{border:1px solid var(--dark);padding:11px 17px;border-radius:4px;font-size:13px;font-weight:700}
+.cart-btn,.btn-dark{background:var(--dark);color:white}
+.btn-light{display:inline-block;margin-left:8px}
+.btn:hover,.cart-btn:hover{background:var(--brown);color:white}
+.hero{min-height:570px;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:50px;padding:65px 8%;background:radial-gradient(ellipse at 80% 50%,#e9c9ab,transparent 65%),var(--cream)}
+.eyebrow{font-size:11px;letter-spacing:2.5px;color:#986b43;font-weight:700}
+h1,h2,h3{font-family:'Playfair Display',serif;line-height:1.2}
+h1{font-size:clamp(43px,5.5vw,72px);margin:20px 0;letter-spacing:-2px}
+h1 em{color:#a66d40;font-weight:500}
+.hero p{font-size:15px;color:var(--muted);max-width:450px;margin-bottom:28px}
+.hero-image{position:relative}
+.hero-image img{width:100%;height:410px;object-fit:cover;border-radius:48% 48% 5px 5px;box-shadow:0 20px 45px #351b1618}
+.floating{position:absolute;bottom:20px;left:-20px;background:white;padding:14px 20px;box-shadow:0 8px 25px #0001;font:16px 'Playfair Display',serif}
+.benefits{display:flex;justify-content:center;gap:24px 50px;flex-wrap:wrap;padding:20px;background:var(--pink);font-size:12px;font-weight:600;color:var(--brown)}
+section{padding:80px 8%}
+.section-head{text-align:center;margin-bottom:40px}
+.section-head h2{font-size:clamp(32px,4vw,46px);margin:12px 0}
+.section-head p:last-child{color:var(--muted);font-size:14px}
+.products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+.product{min-width:0}
+.product-image{position:relative;overflow:hidden;background:var(--pink)}
+.product-image img{width:100%;height:245px;object-fit:cover;transition:transform .4s}
+.product:hover img{transform:scale(1.05)}
+.tag{position:absolute;top:12px;left:12px;background:var(--cream);padding:5px 9px;font-size:9px;font-weight:700}
+.product h3{font-size:20px;margin:15px 0 5px}
+.product p{font-size:12px;color:var(--muted);min-height:40px}
+.product-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px}
+.price{font-weight:700}
+.add-btn{border:0;background:var(--dark);color:white;padding:10px 12px;border-radius:3px;font-size:11px;font-weight:700}
+.add-btn:hover{background:var(--gold)}
+.story{background:var(--pink);display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:55px}
+.story img{width:100%;height:370px;object-fit:cover}
+.story h2{font-size:clamp(34px,4vw,48px);margin:16px 0}
+.story p{font-size:14px;color:var(--muted);margin-bottom:22px}
+.testimonial{background:var(--dark);color:var(--cream);text-align:center}
+.stars{color:#e8b875;letter-spacing:5px}
+blockquote{font:clamp(24px,3.5vw,34px)/1.4 'Playfair Display',serif;max-width:720px;margin:22px auto}
+.testimonial p{font-size:12px;color:#d8bdac}
+.contact{text-align:center}
+.contact h2{font-size:38px;margin:14px 0}
+.contact p{color:var(--muted);margin-bottom:25px}
+footer{background:#291510;color:var(--cream);text-align:center;padding:40px 8% 20px}
+footer p{color:#d0b8a8;margin:8px 0 25px;font-size:13px}
+footer small{display:block;border-top:1px solid #50352b;padding-top:18px;color:#c5a999}
+dialog{width:min(92%,480px);max-height:85vh;overflow-y:auto;margin:auto;padding:25px;border:1px solid #e5d2c1;border-radius:8px;background:var(--cream);color:var(--dark)}
+dialog::backdrop{background:#1c0d0bd9}
+.dialog-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.close-btn{border:1px solid #e5d2c1;background:white;padding:7px 12px}
+.cart-item{display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid #e5d2c1;padding:13px 0;font-size:13px}
+.quantity{display:flex;align-items:center;gap:9px;margin-top:8px}
+.quantity button{padding:3px 8px;background:white;border:1px solid #ddd}
+.total{display:flex;justify-content:space-between;padding:20px 0;font-weight:700}
+.form{display:grid;gap:13px}
+.form label{display:grid;gap:5px;font-size:12px;font-weight:600}
+.form input{width:100%;padding:12px;border:1px solid #dfcbbb;background:white;border-radius:3px}
+.full{width:100%}
+.note{font-size:12px;color:var(--muted);margin:10px 0}
+.toast{position:fixed;bottom:20px;right:20px;z-index:20;background:var(--dark);color:white;padding:13px 20px;border-radius:4px}
+.toast:empty{display:none}
+@media(max-width:900px){
+  .hero{padding:55px 6%;gap:25px}
+  .hero-image img{height:330px}
+  section{padding:60px 6%}
+  .products{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .story{gap:30px}
+}
+@media(max-width:620px){
+  header{padding:14px 5%;flex-wrap:wrap;gap:12px}
+  .logo{font-size:25px}
+  nav{order:3;width:100%;justify-content:space-between;gap:8px;font-size:11px}
+  .cart-btn{padding:9px;font-size:11px}
+  .hero{grid-template-columns:1fr;padding:45px 6%}
+  h1{font-size:48px}
+  .hero-image img{height:300px}
+  .floating{left:8px}
+  .benefits{gap:12px 20px;font-size:10px}
+  section{padding:55px 5%}
+  .products{gap:24px 14px}
+  .product-image img{height:175px}
+  .product h3{font-size:17px}
+  .product-bottom{align-items:flex-start;flex-direction:column}
+  .story{grid-template-columns:1fr}
+  .story img{height:270px}
+  .btn-light{margin:10px 0 0}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
+</style>
+</head>
+
+<body>
+<div class="announcement">HANDCRAFTED WITH LOVE · A LITTLE HAPPINESS IN EVERY BITE</div>
+
+<header>
+  <a class="logo" href="#home">Choco<span>Hub.</span></a>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#shop">Our Chocolates</a>
+    <a href="#story">Our Story</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <button class="cart-btn" id="open-cart">My Bag (<span id="cart-count">0</span>)</button>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div>
+    <span class="eyebrow">THE ART OF HOMEMADE CHOCOLATE</span>
+    <h1>Happiness is<br>made of <em>chocolate.</em></h1>
+    <p>Not just chocolate. A little moment of magic. Discover handcrafted delights made to turn ordinary days into your sweetest memories.</p>
+    <a class="btn btn-dark" href="#shop">Explore Chocolates ↗</a>
+    <a class="btn btn-light" href="#story">Our Story</a>
+  </div>
+  <div class="hero-image">
+    <img src="https://images.unsplash.com/photo-1548907040-4d42e3f2b0a5?auto=format&fit=crop&w=1000&q=85" alt="Artisan handmade chocolates">
+    <div class="floating">Made with love ♡</div>
+  </div>
+</section>
+
+<div class="benefits">
+  <span>✦ Handcrafted Goodness</span>
+  <span>✦ Beautifully Giftable</span>
+  <span>✦ Sweet Moments, Always</span>
+</div>
+
+<section id="shop">
+  <div class="section-head">
+    <span class="eyebrow">A WORLD OF COCOA</span>
+    <h2>Meet Your New Obsession</h2>
+    <p>Little creations. Big chocolate energy.</p>
+  </div>
+  <div class="products" id="products"></div>
+</section>
+
+<section class="story" id="story">
+  <div>
+    <img src="https://images.unsplash.com/photo-1511381939415-e44015466834?auto=format&fit=crop&w=1000&q=85" alt="Chocolate treats and ingredients" loading="lazy">
+  </div>
+  <div>
+    <span class="eyebrow">MORE THAN JUST CHOCOLATE</span>
+    <h2>A little love.<br>A lot of cocoa.</h2>
+    <p>At ChocoHub, we believe the best things in life are handmade and shared. Our dream is to bring people closer through delightful chocolate creations made for celebrations, thoughtful gifts and everyday joy.</p>
+    <p>Every box is an invitation to slow down, savour the moment and share something sweet.</p>
+    <a class="btn btn-dark" href="#shop">Find Your Favourite ↗</a>
+  </div>
+</section>
+
+<section class="testimonial">
+  <div class="stars">★★★★★</div>
+  <blockquote>“Some gifts make you smile. Chocolate makes the moment unforgettable.”</blockquote>
+  <p>A LITTLE CHOCOHUB LOVE NOTE</p>
+</section>
+
+<section class="contact" id="contact">
+  <span class="eyebrow">LET'S MAKE IT SWEET</span>
+  <h2>Something special awaits.</h2>
+  <p>Looking for a chocolate gift? We'd love to hear from you.</p>
+  <a class="btn btn-dark" href="mailto:hello@yourdomain.com">Contact ChocoHub ↗</a>
+</section>
+</main>
+
+<footer>
+  <a class="logo" href="#home">Choco<span>Hub.</span></a>
+  <p>Made with love. Wrapped in happiness.</p>
+  <small>© <span id="year"></span> ChocoHub. All rights reserved.</small>
+</footer>
+
+<dialog id="cart-dialog">
+  <div class="dialog-head">
+    <h2>Your Chocolate Bag</h2>
+    <button class="close-btn" id="close-cart" aria-label="Close cart">✕</button>
+  </div>
+  <div id="cart-items"></div>
+  <div class="total"><span>Total</span><span id="cart-total">₹0</span></div>
+  <p class="note">Demo checkout only. No payment will be collected.</p>
+  <button class="btn btn-dark full" id="checkout-btn">Continue to Checkout →</button>
+</dialog>
+
+<dialog id="checkout-dialog">
+  <div class="dialog-head">
+    <h2>Delivery Details</h2>
+    <button class="close-btn" id="close-checkout" aria-label="Close checkout">✕</button>
+  </div>
+  <form class="form" id="checkout-form">
+    <label>Full name<input name="name" autocomplete="name" required maxlength="100"></label>
+    <label>Email address<input name="email" type="email" autocomplete="email" required></label>
+    <label>Phone number<input name="phone" type="tel" autocomplete="tel" required></label>
+    <label>Delivery address<input name="address" autocomplete="street-address" required maxlength="300"></label>
+    <label>City<input name="city" autocomplete="address-level2" required></label>
+    <label>PIN code<input name="postalCode" autocomplete="postal-code" required></label>
+    <div class="total"><span>Order total</span><span id="checkout-total">₹0</span></div>
+    <button class="btn btn-dark full" type="submit">Place Demo Order</button>
+    <p class="note">Demo only. Connect a secure backend and payment gateway to accept real orders.</p>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const products = [
+  {
+    id:1,name:"Dark Desire",
+    description:"Deep cocoa notes for true chocolate lovers.",
+    price:249,tag:"BESTSELLER",
+    image:"https://images.unsplash.com/photo-1575377427642-087cf684f29d?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    id:2,name:"Nutty Nirvana",
+    description:"A delicious crunch wrapped in chocolate.",
+    price:299,tag:"FAVOURITE",
+    image:"https://images.unsplash.com/photo-1481391319762-47dff72954d9?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    id:3,name:"Velvet Truffles",
+    description:"Silky, smooth and impossible to resist.",
+    price:349,tag:"SWEET PICK",
+    image:"https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    id:4,name:"Love Box",
+    description:"A thoughtful chocolate gift for someone special.",
+    price:499,tag:"PERFECT GIFT",
+    image:"https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=600&q=80"
+  }
+];
+
+let cart = [];
+
+const $ = selector => document.querySelector(selector);
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  })[char]);
+}
+
+function toast(message) {
+  $("#toast").textContent = message;
+  clearTimeout(toast.timer);
+  toast.timer = setTimeout(() => $("#toast").textContent="",2500);
+}
+
+function renderProducts() {
+  $("#products").innerHTML = products.map(p => `
+    <article class="product">
+      <div class="product-image">
+        <span class="tag">${escapeHTML(p.tag)}</span>
+        <img src="${escapeHTML(p.image)}" alt="${escapeHTML(p.name)}" loading="lazy">
+      </div>
+      <h3>${escapeHTML(p.name)}</h3>
+      <p>${escapeHTML(p.description)}</p>
+      <div class="product-bottom">
+        <span class="price">₹${p.price}</span>
+        <button class="add-btn" data-add="${p.id}">+ Add to Bag</button>
+      </div>
+    </article>
+  `).join("");
+}
+
+function renderCart() {
+  $("#cart-count").textContent=cart.reduce((sum,item)=>sum+item.quantity,0);
+
+  $("#cart-items").innerHTML=cart.length ? cart.map(item=>{
+    const p=products.find(product=>product.id===item.id);
+    return `<div class="cart-item">
+      <div>
+        <strong>${escapeHTML(p.name)}</strong><br>
+        ₹${p.price} each
+        <div class="quantity">
+          <button data-qty="${p.id}" data-delta="-1" aria-label="Decrease quantity">−</button>
+          <span>${item.quantity}</span>
+          <button data-qty="${p.id}" data-delta="1" aria-label="Increase quantity">+</button>
+          <button data-remove="${p.id}">Remove</button>
+        </div>
+      </div>
+      <strong>₹${p.price*item.quantity}</strong>
+    </div>`;
+  }).join(""):"<p>Your bag is waiting for something sweet!</p>";
+
+  const total=cart.reduce((sum,item)=>sum+products.find(p=>p.id===item.id).price*item.quantity,0);
+  $("#cart-total").textContent="₹"+total;
+  $("#checkout-total").textContent="₹"+total;
+  $("#checkout-btn").disabled=cart.length===0;
+}
+
+$("#products").addEventListener("click",event=>{
+  const button=event.target.closest("[data-add]");
+  if(!button)return;
+
+  const id=Number(button.dataset.add);
+  const item=cart.find(x=>x.id===id);
+
+  if(item){
+    if(item.quantity>=20)return toast("Maximum quantity is 20.");
+    item.quantity++;
+  } else {
+    cart.push({id,quantity:1});
+  }
+
+  renderCart();
+  toast("Added to your chocolate bag ♡");
+});
+
+$("#cart-items").addEventListener("click",event=>{
+  const qtyButton=event.target.closest("[data-qty]");
+  const removeButton=event.target.closest("[data-remove]");
+
+  if(removeButton){
+    cart=cart.filter(x=>x.id!==Number(removeButton.dataset.remove));
+  }else if(qtyButton){
+    const item=cart.find(x=>x.id===Number(qtyButton.dataset.qty));
+    if(item){
+      item.quantity+=Number(qtyButton.dataset.delta);
+      if(item.quantity<=0)cart=cart.filter(x=>x.id!==item.id);
+      else if(item.quantity>20)item.quantity=20;
+    }
+  }
+  renderCart();
+});
+
+$("#open-cart").addEventListener("click",()=>$("#cart-dialog").showModal());
+$("#close-cart").addEventListener("click",()=>$("#cart-dialog").close());
+$("#close-checkout").addEventListener("click",()=>$("#checkout-dialog").close());
+
+$("#checkout-btn").addEventListener("click",()=>{
+  if(!cart.length)return;
+  $("#cart-dialog").close();
+  $("#checkout-dialog").showModal();
+});
+
+$("#checkout-form").addEventListener("submit",event=>{
+  event.preventDefault();
+  if(!event.currentTarget.reportValidity()||!cart.length)return;
+
+  const customer=Object.fromEntries(new FormData(event.currentTarget));
+  const total=cart.reduce((sum,item)=>sum+products.find(p=>p.id===item.id).price*item.quantity,0);
+
+  alert(
+    "Thank you, "+customer.name+"!\n\n"+
+    "Demo order total: ₹"+total+
+    "\n\nThis is a prototype. No payment or order has been processed."
+  );
+
+  $("#checkout-dialog").close();
+});
+
+$("#year").textContent=new Date().getFullYear();
+renderProducts();
+renderCart();
+</script>
+</body>
+</html>

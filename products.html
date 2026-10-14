@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Products | ChocoHub</title>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --dark: #351b16;
+  --brown: #633b2c;
+  --gold: #c08b55;
+  --cream: #fff8ef;
+  --pink: #f0dfd2;
+  --muted: #806c62;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+  background: var(--cream);
+  color: var(--dark);
+}
+
+header {
+  background: #fff;
+  padding: 18px 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 3px 15px #351b1610;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  font-family: "Playfair Display", serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--dark);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.logo span {
+  color: var(--gold);
+}
+
+nav {
+  display: flex;
+  gap: 22px;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--brown);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+nav a:hover {
+  color: var(--gold);
+}
+
+.bag {
+  background: var(--dark);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 11px 17px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.hero {
+  text-align: center;
+  padding: 65px 20px 50px;
+  background: linear-gradient(135deg, #f5e2d1, #fff8ef);
+}
+
+.eyebrow {
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.hero h1 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(35px, 5vw, 56px);
+  margin: 15px 0;
+}
+
+.hero p {
+  max-width: 550px;
+  margin: auto;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+main {
+  max-width: 1250px;
+  margin: auto;
+  padding: 35px 5% 70px;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.search {
+  flex: 1;
+  min-width: 200px;
+  max-width: 450px;
+  padding: 13px 18px;
+  border: 1px solid #e4d3c5;
+  border-radius: 30px;
+  outline: none;
+  background: white;
+  font: inherit;
+}
+
+.search:focus {
+  border-color: var(--gold);
+}
+
+select {
+  padding: 13px 16px;
+  border: 1px solid #e4d3c5;
+  border-radius: 25px;
+  background: white;
+  color: var(--dark);
+  font: inherit;
+  cursor: pointer;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.filter {
+  padding: 10px 16px;
+  border: 1px solid #e4d3c5;
+  border-radius: 25px;
+  background: white;
+  color: var(--brown);
+  font: inherit;
+  cursor: pointer;
+}
+
+.filter:hover,
+.filter.active {
+  background: var(--dark);
+  border-color: var(--dark);
+  color: white;
+}
+
+.results {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 5px 22px #351b160b;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px #351b1617;
+}
+
+.product-image {
+  height: 220px;
+  position: relative;
+  overflow: hidden;
+  background: var(--pink);
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.35s;
+}
+
+.card:hover .product-image img {
+  transform: scale(1.05);
+}
+
+.category {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 6px 10px;
+  background: #fff8efed;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.fallback {
+  display: none;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  text-align: center;
+  padding: 15px;
+}
+
+.fallback span {
+  font-size: 58px;
+}
+
+.fallback strong {
+  font-family: "Playfair Display", serif;
+  font-size: 17px;
+}
+
+.product-info {
+  padding: 16px;
+}
+
+.product-info h3 {
+  font-family: "Playfair Display", serif;
+  font-size: 19px;
+  margin-bottom: 8px;
+}
+
+.description {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+  min-height: 41px;
+}
+
+.product-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.price {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.add {
+  border: none;
+  border-radius: 22px;
+  padding: 10px 13px;
+  background: var(--dark);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.add:hover {
+  background: var(--gold);
+}
+
+.empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 45px 10px;
+  color: var(--muted);
+}
+
+footer {
+  background: var(--dark);
+  color: #f8eade;
+  text-align: center;
+  padding: 32px 15px;
+}
+
+.footer-logo {
+  font-family: "Playfair Display", serif;
+  font-size: 25px;
+}
+
+footer p {
+  margin-top: 8px;
+  color: #d6bca9;
+  font-size: 13px;
+}
+
+@media (max-width: 950px) {
+  .products {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  header {
+    padding: 15px 4%;
+    flex-wrap: wrap;
+  }
+
+  .logo {
+    font-size: 25px;
+  }
+
+  nav {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .hero {
+    padding: 45px 18px;
+  }
+
+  main {
+    padding: 25px 4% 50px;
+  }
+
+  .products {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 13px;
+  }
+
+  .product-image {
+    height: 165px;
+  }
+
+  .product-info {
+    padding: 12px;
+  }
+
+  .product-info h3 {
+    font-size: 16px;
+  }
+
+  .description {
+    font-size: 11px;
+  }
+
+  .price {
+    font-size: 16px;
+  }
+
+  .add {
+    padding: 9px 10px;
+    font-size: 11px;
+  }
+
+  .search {
+    max-width: none;
+    width: 100%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html" class="logo">Choco<span>Hub.</span></a>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="index.html#story">Our Story</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
+
+  <button class="bag" onclick="showBag()">
+    🛍️ Bag (<span id="bagCount">0</span>)
+  </button>
+</header>
+
+<section class="hero">
+  <div class="eyebrow">Made with love & cocoa</div>
+  <h1>Our Chocolate Collection</h1>
+  <p>Discover handcrafted chocolate treats made to turn your everyday moments into something special.</p>
+</section>
+
+<main>
+  <div class="toolbar">
+    <input
+      class="search"
+      id="searchInput"
+      type="search"
+      placeholder="Search your favourite chocolate..."
+      aria-label="Search chocolates"
+    >
+
+    <select id="sortSelect" aria-label="Sort products">
+      <option value="featured">Sort: Featured</option>
+      <option value="low">Price: Low to High</option>
+      <option value="high">Price: High to Low</option>
+      <option value="az">Name: A to Z</option>
+    </select>
+  </div>
+
+  <div class="filters">
+    <button class="filter active" data-category="all">All Chocolates</button>
+    <button class="filter" data-category="dark">Dark Chocolate</button>
+    <button class="filter" data-category="nuts">Nutty Treats</button>
+    <button class="filter" data-category="truffles">Truffles</button>
+    <button class="filter" data-category="gifts">Gift Boxes</button>
+  </div>
+
+  <p class="results" id="resultsCount"></p>
+  <section class="products" id="productGrid"></section>
+</main>
+
+<footer>
+  <div class="footer-logo">ChocoHub.</div>
+  <p>Little bites of happiness, made with love. 🍫</p>
+  <p>© 2026 ChocoHub. All rights reserved.</p>
+</footer>
+
+<script>
+const products = [
+  {
+    id: 1,
+    name: "Dark Desire",
+    price: 249,
+    category: "dark",
+    description: "Rich dark chocolate for true cocoa lovers.",
+    emoji: "🍫",
+    color: "#ead1bd",
+    image: "https://images.unsplash.com/photo-1575377427642-087cf684f29d?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    id: 2,
+    name: "Nutty Nirvana",
+    price: 299,
+    category: "nuts",
+    description: "Crunchy nuts wrapped in creamy chocolate.",
+    emoji: "🥜",
+    color: "#f0dfc4",
+    image: "https://images.unsplash.com/photo-1481391319762-47dff72954d9?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    id: 3,
+    name: "Velvet Truffles",
+    price: 349,
+    category: "truffles",
+    description: "Smooth, luxurious chocolate truffles.",
+    emoji: "🍬",
+    color: "#ead6dd",
+    image: "https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    id: 4,
+    name: "Love Box",
+    price: 499,
+    category: "gifts",
+    description: "A thoughtful chocolate gift for someone special.",
+    emoji: "🎁",
+    color: "#f3d5da",
+    image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    id: 5,
+    name: "Caramel Bliss",
+    price: 279,
+    category: "dark",
+    description: "Chocolate with delicious caramel notes.",
+    emoji: "🍮",
+    color: "#f1d3a9",
+    image: "https://images.unsplash.com/photo-1511381939415-e44015466834?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    id: 6,
+    name: "Hazelnut Heaven",
+    price: 329,
+    category: "nuts",
+    description: "A delightful chocolate and hazelnut combination.",
+    emoji: "🌰",
+    color: "#dfc2a3",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1cQMJ0utfuEyQu3P7sX_xU3F6RpjgsaZl1wPfHM8dMg&s=10"
+  },
+  {
+    id: 7,
+    name: "Choco Truffle Box",
+    price: 399,
+    category: "truffles",
+    description: "An assortment of delicious chocolate truffles.",
+    emoji: "🍬",
+    color: "#e2d8ee",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTuh6A_GNH3pb9KkEL1nKvwlVFqUrvze1WDgQ8X7G56g&s=10"
+  },
+  {
+    id: 8,
+    name: "Sweetheart Gift Box",
+    price: 599,
+    category: "gifts",
+    description: "A charming gift filled with sweet surprises.",
+    emoji: "💝",
+    color: "#f5d4dc",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhLb-i8Urn9yYz1Ig_xczg8Zfebkutne3URP7u-Ab6Ig&s=10"
+  },
+  {
+    id: 9,
+    name: "Almond Crunch",
+    price: 259,
+    category: "nuts",
+    description: "Crunchy chocolate with delicious almond pieces.",
+    emoji: "🌰",
+    color: "#e8d4b6",
+    image: "https://images.unsplash.com/photo-1526081347589-7fa3cb41b4b2?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    id: 10,
+    name: "Midnight Cocoa",
+    price: 319,
+    category: "dark",
+    description: "Deep cocoa flavour with a rich finish.",
+    emoji: "🍫",
+    color: "#d7d0e8",
+    image: "https://images.unsplash.com/photo-1511381939415-e44015466834?auto=format&fit=crop&w=700&q=80&sat=-30"
+  },
+  {
+    id: 11,
+    name: "Classic Chocolate Truffles",
+    price: 369,
+    category: "truffles",
+    description: "Classic chocolate bites with a smooth centre.",
+    emoji: "🍬",
+    color: "#dfc9be",
+    image: "https://images.unsplash.com/photo-1481391319762-47dff72954d9?auto=format&fit=crop&w=700&q=80&sat=-40"
+  },
+  {
+    id: 12,
+    name: "Celebration Hamper",
+    price: 799,
+    category: "gifts",
+    description: "A generous chocolate hamper for celebrations.",
+    emoji: "🎀",
+    color: "#ead8bd",
+    image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=700&q=80&sat=-25"
+  }
+];
+
+let selectedCategory = "all";
+let bag = [];
+
+const grid = document.getElementById("productGrid");
+const searchInput = document.getElementById("searchInput");
+const sortSelect = document.getElementById("sortSelect");
+const resultsCount = document.getElementById("resultsCount");
+
+function renderProducts() {
+  const search = searchInput.value.toLowerCase().trim();
+
+  let filtered = products.filter(product => {
+    const categoryMatch =
+      selectedCategory === "all" ||
+      product.category === selectedCategory;
+
+    const searchMatch =
+      product.name.toLowerCase().includes(search) ||
+      product.description.toLowerCase().includes(search);
+
+    return categoryMatch && searchMatch;
+  });
+
+  if (sortSelect.value === "low") {
+    filtered.sort((a, b) => a.price - b.price);
+  } else if (sortSelect.value === "high") {
+    filtered.sort((a, b) => b.price - a.price);
+  } else if (sortSelect.value === "az") {
+    filtered.sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  resultsCount.textContent =
+    `Showing ${filtered.length} of ${products.length} products`;
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `
+      <div class="empty">
+        <h3>No chocolates found 🍫</h3>
+        <p>Try another search or category.</p>
+      </div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(product => `
+    <article class="card">
+      <div class="product-image">
+        <img src="${product.image}" alt="${product.name}" loading="eager">
+
+        <div class="fallback" style="background:${product.color}">
+          <span>${product.emoji}</span>
+          <strong>${product.name}</strong>
+        </div>
+
+        <span class="category">${product.category}</span>
+      </div>
+
+      <div class="product-info">
+        <h3>${product.name}</h3>
+        <p class="description">${product.description}</p>
+
+        <div class="product-bottom">
+          <span class="price">₹${product.price}</span>
+          <button class="add" onclick="addToBag(${product.id})">
+            + Add
+          </button>
+        </div>
+      </div>
+    </article>
+  `).join("");
+
+  grid.querySelectorAll(".card").forEach(card => {
+    const img = card.querySelector("img");
+    const fallback = card.querySelector(".fallback");
+
+    function showFallback() {
+      img.style.display = "none";
+      fallback.style.display = "flex";
+    }
+
+    img.addEventListener("error", showFallback, { once: true });
+
+    if (img.complete && img.naturalWidth === 0) {
+      showFallback();
+    }
+  });
+}
+
+function addToBag(id) {
+  const product = products.find(item => item.id === id);
+  if (!product) return;
+
+  bag.push(product);
+  document.getElementById("bagCount").textContent = bag.length;
+  alert(`${product.name} added to your bag!`);
+}
+
+function showBag() {
+  if (bag.length === 0) {
+    alert("Your bag is empty. Add some chocolates first! 🍫");
+    return;
+  }
+
+  const total = bag.reduce((sum, item) => sum + item.price, 0);
+  const items = bag
+    .map(item => `${item.name} - ₹${item.price}`)
+    .join("\n");
+
+  alert(
+    "YOUR CHOCOHUB BAG\n\n" +
+    items +
+    "\n\nTotal: ₹" + total +
+    "\n\nDemo only: checkout is not connected."
+  );
+}
+
+document.querySelectorAll(".filter").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".filter").forEach(item => {
+      item.classList.remove("active");
+    });
+
+    button.classList.add("active");
+    selectedCategory = button.dataset.category;
+    renderProducts();
+  });
+});
+
+searchInput.addEventListener("input", renderProducts);
+sortSelect.addEventListener("change", renderProducts);
+
+renderProducts();
+</script>
+
+</body>
+</html>
